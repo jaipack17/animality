@@ -2,10 +2,32 @@ const fetch = require("node-fetch")
 
 module.exports = {
   getAsync : async function(type){
-    if(typeof type != "string") throw new TypeError("Invalid type of arguments!")
+    if(typeof type != "string" && typeof type != "object") throw new TypeError("Invalid type of arguments! Arguments must be a string or an array!")
     if(!type) throw new TypeError("No arguments provided!")
     let img = `https://random-api.nitcord.repl.co/api/img/${type}`
     let fact = `https://random-api.nitcord.repl.co/api/facts/${type}`
+    if(typeof type == "object"){
+      let data = []
+      let animals = ["cat", "dog", "bird", "panda", "redpanda", "koala", "fox", "whale", "kangaroo", "bunny"]
+      for(var i = 0; i < type.length; i++){
+        if(animals.includes(type[i])){
+          img = `https://random-api.nitcord.repl.co/api/img/${type[i]}`
+          fact = `https://random-api.nitcord.repl.co/api/facts/${type[i]}`
+          const imgData = await fetch(img).then(lang => lang.json())
+          const factData = await fetch(fact).then(lang => lang.json())
+          let factReceived = factData.fact
+          let imgReceived = imgData.link  
+          let object = {}
+          object["name"] = type[i]
+          object["image"] = imgReceived
+          object["fact"] = factReceived
+          data[i] = object
+        } else{
+          throw new TypeError("Invalid argument! Invalid Animal Name!")
+        }
+      }
+      return data
+    }
     if(type == "cat"){
       const imgData = await fetch(img).then(lang => lang.json())
       const factData = await fetch(fact).then(lang => lang.json())
