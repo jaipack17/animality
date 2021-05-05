@@ -42,8 +42,8 @@ animality.getAsync(animal).then(data => {
 ## Output:
 ```json
 {
-  image: "random cat image link",
-  fact: "random cat fact"
+  "image": "random cat image link",
+  "fact": "random cat fact"
 }
 ```
 
@@ -62,8 +62,8 @@ animality.getAsync(animal).then(data => {
 
 ```json
 {
-  name: "animal name"
-  image: "random animal image link",
-  fact: "random animal fact"
+  "name": "animal name",
+  "image": "random animal image link",
+  "fact": "random animal fact"
 }
 ```
